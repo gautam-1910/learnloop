@@ -95,6 +95,7 @@ function Analytics() {
           </div>
 
           <p style={{ marginTop: "1rem" }}>Current streak: {data.current_streak} days 🔥</p>
+          <p style={{ marginTop: "1rem" }}>Retention score: {data.retention_score}% 🧠</p>
         </div>
       )}
     </div>

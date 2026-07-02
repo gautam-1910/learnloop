@@ -139,11 +139,12 @@ def get_analytics(habit_id: int):
     else:
         days_since_last = None
 
-decay_rate = 0.1  # tweakable: higher = faster decay
-if days_since_last is not None:
-    retention_score = round(100 * math.exp(-decay_rate * days_since_last), 1)
-else:
-    retention_score = 0
+    decay_rate = 0.1
+    if days_since_last is not None:
+        retention_score = round(100 * math.exp(-decay_rate * days_since_last), 1)
+    else:
+        retention_score = 0
+
     return {
         "habit_id": habit_id,
         "topic": habit["topic"],
