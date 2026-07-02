@@ -179,3 +179,24 @@ def suggest_next():
             "message": f"Your retention for '{best_habit['topic']}' is at {best_habit['retention_score']}%. Time to review it!"
         }
     return {"suggestion": None, "message": "No data yet"}
+@app.get("/best-study-day")
+def best_study_day():
+    conn = get_db()
+    rows = conn.execute("SELECT session_date FROM sessions").fetchall()
+    conn.close()
+
+    if not rows:
+        return {"best_day": None, "message": "No sessions logged yet"}
+
+    day_counts = {}
+    for row in rows:
+        date_obj = datetime.strptime(row["session_date"], "%Y-%m-%d")
+        day_name = date_obj.strftime("%A")
+        day_counts[day_name] = day_counts.get(day_name, 0) + 1
+
+    best_day = max(day_counts, key=day_counts.get)
+    return {
+        "best_day": best_day,
+        "session_count": day_counts[best_day],
+        "breakdown": day_counts
+    }
