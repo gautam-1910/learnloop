@@ -53,6 +53,9 @@ Analytics.jsx
 api.js
 App.jsx
 
+## Environment Variables
+This project does not require any environment variables — the SQLite database is created locally as `learnloop.db`, and the backend URL is hardcoded in `frontend/src/api.js` (`http://127.0.0.1:8000`) for local development.
+
 ## Notes
 - Retention score formula: `100 * e^(-0.1 * days_since_last_session)` — inspired by spaced-repetition learning theory (the forgetting curve).
 - "Best study day" is calculated from session dates only (time-of-day isn't stored, so only day-of-week granularity is available).
