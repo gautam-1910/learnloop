@@ -55,22 +55,17 @@ Runs on `http://localhost:5173`
 
 ## 📁 Project Structure
 
-​```
-learnloop/
-├── backend/
-│   ├── main.py
-│   └── learnloop.db
-└── frontend/
-    └── src/
-        ├── pages/
-        │   ├── Login.jsx
-        │   ├── Habits.jsx
-        │   └── Analytics.jsx
-        ├── api.js
-        └── App.jsx
-​```
-
----
+- **backend/**
+  - `main.py`
+  - `learnloop.db`
+- **frontend/**
+  - **src/**
+    - **pages/**
+      - `Login.jsx`
+      - `Habits.jsx`
+      - `Analytics.jsx`
+    - `api.js`
+    - `App.jsx`
 
 ## 🔑 Environment Variables
 
