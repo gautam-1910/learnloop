@@ -1,16 +1,54 @@
-# React + Vite
+# LearnLoop
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A learning habit tracker built for the Sayone Tech Full Stack Intern coding assignment.
 
-Currently, two official plugins are available:
+## Tech Stack
+- **Backend:** FastAPI + SQLite
+- **Frontend:** React (Vite) + React Router + Recharts
+- **Auth:** Mocked (name/email captured client-side, no backend auth)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- Add learning habits (topic, category, frequency, estimated time, start date)
+- Log study sessions per habit
+- Analytics dashboard per habit:
+  - Total hours studied
+  - Current streak
+  - Completion percentage
+  - Retention score (exponential decay based on days since last session — models a forgetting curve)
+  - Visualized with a pie chart (completion %) and bar chart (hours/sessions/streak)
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Backend
+```bash
+cd backend
+pip install fastapi uvicorn
+uvicorn main:app --reload
+```
+Runs on `http://127.0.0.1:8000`
 
-## Expanding the Oxlint configuration
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Runs on `http://localhost:5173`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Project Structure
+learnloop/
+backend/
+main.py
+learnloop.db
+frontend/
+src/
+pages/
+Login.jsx
+Habits.jsx
+Analytics.jsx
+api.js
+App.jsx
+
+## Notes
+- Retention score formula: `100 * e^(-0.1 * days_since_last_session)` — encourages revisiting topics before knowledge decays, inspired by spaced-repetition learning theory.
+- CORS is configured to allow requests from `http://localhost:5173`.
