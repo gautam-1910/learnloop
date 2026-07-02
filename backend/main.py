@@ -154,3 +154,28 @@ def get_analytics(habit_id: int):
         "total_sessions": len(sessions),
         "retention_score": retention_score
     }
+@app.get("/suggest-next")
+def suggest_next():
+    conn = get_db()
+    habits = conn.execute("SELECT * FROM habits").fetchall()
+    conn.close()
+
+    if not habits:
+        return {"suggestion": None, "message": "No habits found"}
+
+    best_habit = None
+    lowest_score = 101
+
+    for h in habits:
+        analytics = get_analytics(h["id"])
+        if "retention_score" in analytics and analytics["retention_score"] < lowest_score:
+            lowest_score = analytics["retention_score"]
+            best_habit = analytics
+
+    if best_habit:
+        return {
+            "suggestion": best_habit["topic"],
+            "retention_score": best_habit["retention_score"],
+            "message": f"Your retention for '{best_habit['topic']}' is at {best_habit['retention_score']}%. Time to review it!"
+        }
+    return {"suggestion": None, "message": "No data yet"}

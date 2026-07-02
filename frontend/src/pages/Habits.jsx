@@ -25,6 +25,11 @@ function Habits() {
   useEffect(() => {
     loadHabits();
   }, []);
+  const [suggestion, setSuggestion] = useState(null);
+
+  useEffect(() => {
+    api.get("/suggest-next").then((res) => setSuggestion(res.data));
+  }, [habits]);
 
   const handleHabitSubmit = async (e) => {
     e.preventDefault();
@@ -50,6 +55,11 @@ function Habits() {
 
   return (
     <div style={{ padding: "1rem" }}>
+        {suggestion && suggestion.suggestion && (
+        <div style={{ background: "#1f2937", padding: "1rem", borderRadius: "8px", marginBottom: "1rem", textAlign: "center" }}>
+          🧠 {suggestion.message}
+        </div>
+      )}
       <h2>Add Habit</h2>
       <form onSubmit={handleHabitSubmit}>
         <input placeholder="Topic" value={form.topic}
